@@ -34,11 +34,23 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "FabFit Performance Gym",
+        alt: "Coach Ankit Baliyan - FabFit Performance",
+      },
+      {
+        url: "/ankit-baliyan.png",
+        width: 800,
+        height: 800,
+        alt: "Coach Ankit Baliyan",
       },
     ],
     locale: "en_IN",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "FabFit Performance - Premium Gym & Elite Fitness Coaching",
+    description: "Join FabFit Performance, Gurgaon's premium destination for elite fitness, personalized coaching, and transformative workout programs.",
+    images: ["/og-image.jpg"],
   },
 };
 
