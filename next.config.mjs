@@ -14,9 +14,25 @@ try {
 }
 
 const nextConfig = {
+  poweredByHeader: false,
   trailingSlash: false,
   typescript: {
     ignoreBuildErrors: true,
+  },
+  async redirects() {
+    return [
+      {
+        source: '/:path*',
+        has: [
+          {
+            type: 'host',
+            value: 'www.fabfitperformance.com',
+          },
+        ],
+        destination: 'https://fabfitperformance.com/:path*',
+        permanent: true,
+      },
+    ];
   },
   images: {
     unoptimized: true,

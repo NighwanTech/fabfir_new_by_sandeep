@@ -19,11 +19,11 @@ export function AssessmentSidebar() {
       <div className="space-y-6 relative z-10">
         {/* Headings */}
         <div>
-          <h1 className="font-heading font-black text-2xl xl:text-3xl text-white uppercase leading-tight tracking-tight">
+          <h2 className="font-heading font-black text-2xl xl:text-3xl text-white uppercase leading-tight tracking-tight">
             Online Coaching
             <br />
             <span className="text-primary">Application</span>
-          </h1>
+          </h2>
           <p className="text-zinc-400 text-xs xl:text-sm leading-relaxed mt-2">
             With over 15 years of experience in health and fitness, I&apos;m here to help you achieve sustainable, long-lasting results.
           </p>
