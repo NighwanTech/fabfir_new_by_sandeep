@@ -1,4 +1,5 @@
 import React from "react";
+import { Metadata } from "next";
 import Link from "next/link";
 import { ChevronRight, CheckCircle2, Clock, Calendar, BarChart, Dumbbell, Target, Sparkles, Activity, ArrowRight, HeartPulse, PersonStanding, Utensils, MonitorSmartphone } from "lucide-react";
 import { notFound } from "next/navigation";
@@ -31,6 +32,27 @@ async function getServiceBySlug(slug: string) {
   } catch (error) {
     return null;
   }
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const service = await getServiceBySlug(slug);
+  const title = service ? `${service.title} | FabFit Performance` : 'Service Details | FabFit Performance';
+  const description = service?.description || service?.tagline || 'Explore elite fitness coaching programs at FabFit Performance.';
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: `https://fabfitperformance.com/services/${slug}`,
+    },
+    openGraph: {
+      title,
+      description,
+      url: `https://fabfitperformance.com/services/${slug}`,
+      images: [service?.heroImage ? fixImageUrl(service.heroImage) : '/og-image.jpg'],
+    },
+  };
 }
 
 export async function generateStaticParams() {
