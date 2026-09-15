@@ -1,0 +1,111 @@
+import { z } from 'zod';
+
+export const createServiceSchema = z.object({
+  body: z.object({
+    title: z.string().min(1, 'Title is required'),
+    slug: z.string().min(1, 'Slug is required'),
+    badge: z.string().min(1, 'Badge is required'),
+    shortDescription: z.string().min(1, 'Short description is required'),
+    description: z.string().min(1, 'Description is required'),
+    cardImage: z.string().min(1, 'Card image is required'),
+    heroImage: z.string().min(1, 'Hero image is required'),
+    duration: z.string().min(1, 'Duration is required'),
+    sessions: z.string().min(1, 'Sessions is required'),
+    level: z.string().min(1, 'Level is required'),
+    equipment: z.string().min(1, 'Equipment is required'),
+
+    feature1Title: z.string().optional().or(z.literal('')),
+    feature1Description: z.string().optional().or(z.literal('')),
+    feature1Icon: z.string().optional().or(z.literal('')),
+    feature2Title: z.string().optional().or(z.literal('')),
+    feature2Description: z.string().optional().or(z.literal('')),
+    feature2Icon: z.string().optional().or(z.literal('')),
+    feature3Title: z.string().optional().or(z.literal('')),
+    feature3Description: z.string().optional().or(z.literal('')),
+    feature3Icon: z.string().optional().or(z.literal('')),
+    feature4Title: z.string().optional().or(z.literal('')),
+    feature4Description: z.string().optional().or(z.literal('')),
+    feature4Icon: z.string().optional().or(z.literal('')),
+
+    methodologyDescription: z.string().optional().or(z.literal('')),
+
+    benefit1Title: z.string().optional().or(z.literal('')),
+    benefit1Icon: z.string().optional().or(z.literal('')),
+    benefit2Title: z.string().optional().or(z.literal('')),
+    benefit2Icon: z.string().optional().or(z.literal('')),
+    benefit3Title: z.string().optional().or(z.literal('')),
+    benefit3Icon: z.string().optional().or(z.literal('')),
+    benefit4Title: z.string().optional().or(z.literal('')),
+    benefit4Icon: z.string().optional().or(z.literal('')),
+
+    ctaPrimaryText: z.string().optional().or(z.literal('')),
+    ctaPrimaryLink: z.string().optional().or(z.literal('')),
+    ctaSecondaryText: z.string().optional().or(z.literal('')),
+    ctaSecondaryLink: z.string().optional().or(z.literal('')),
+
+    ctaBadge: z.string().optional().or(z.literal('')),
+    ctaTitle: z.string().optional().or(z.literal('')),
+    ctaDescription: z.string().optional().or(z.literal('')),
+    ctaButtonText: z.string().optional().or(z.literal('')),
+    ctaButtonLink: z.string().optional().or(z.literal('')),
+    ctaImage: z.string().optional().or(z.literal('')),
+
+    status: z.enum(['DRAFT', 'ACTIVE', 'INACTIVE']).optional(),
+    displayOrder: z.number().int().optional(),
+  }),
+});
+
+export const updateServiceSchema = z.object({
+  body: z.object({
+    title: z.string().optional(),
+    slug: z.string().optional(),
+    badge: z.string().optional(),
+    shortDescription: z.string().optional(),
+    description: z.string().optional(),
+    cardImage: z.string().optional(),
+    heroImage: z.string().optional(),
+    duration: z.string().optional(),
+    sessions: z.string().optional(),
+    level: z.string().optional(),
+    equipment: z.string().optional(),
+
+    feature1Title: z.string().optional().or(z.literal('')),
+    feature1Description: z.string().optional().or(z.literal('')),
+    feature1Icon: z.string().optional().or(z.literal('')),
+    feature2Title: z.string().optional().or(z.literal('')),
+    feature2Description: z.string().optional().or(z.literal('')),
+    feature2Icon: z.string().optional().or(z.literal('')),
+    feature3Title: z.string().optional().or(z.literal('')),
+    feature3Description: z.string().optional().or(z.literal('')),
+    feature3Icon: z.string().optional().or(z.literal('')),
+    feature4Title: z.string().optional().or(z.literal('')),
+    feature4Description: z.string().optional().or(z.literal('')),
+    feature4Icon: z.string().optional().or(z.literal('')),
+
+    methodologyDescription: z.string().optional().or(z.literal('')),
+
+    benefit1Title: z.string().optional().or(z.literal('')),
+    benefit1Icon: z.string().optional().or(z.literal('')),
+    benefit2Title: z.string().optional().or(z.literal('')),
+    benefit2Icon: z.string().optional().or(z.literal('')),
+    benefit3Title: z.string().optional().or(z.literal('')),
+    benefit3Icon: z.string().optional().or(z.literal('')),
+    benefit4Title: z.string().optional().or(z.literal('')),
+    benefit4Icon: z.string().optional().or(z.literal('')),
+
+    ctaPrimaryText: z.string().optional().or(z.literal('')),
+    ctaPrimaryLink: z.string().optional().or(z.literal('')),
+    ctaSecondaryText: z.string().optional().or(z.literal('')),
+    ctaSecondaryLink: z.string().optional().or(z.literal('')),
+
+    ctaBadge: z.string().optional().or(z.literal('')),
+    ctaTitle: z.string().optional().or(z.literal('')),
+    ctaDescription: z.string().optional().or(z.literal('')),
+    ctaButtonText: z.string().optional().or(z.literal('')),
+    ctaButtonLink: z.string().optional().or(z.literal('')),
+    ctaImage: z.string().optional().or(z.literal('')),
+
+    status: z.enum(['DRAFT', 'ACTIVE', 'INACTIVE']).optional(),
+    displayOrder: z.number().int().optional(),
+  }),
+});

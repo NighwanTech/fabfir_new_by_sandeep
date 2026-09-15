@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+@theme {
+  /* Colors */
+  --color-background: #09090b; /* Near Black */
+  --color-surface: #18181b; /* Dark Charcoal */
+  --color-card: #27272a; /* Slightly lighter Dark Gray */
+  
+  --color-primary: #FFB81C; /* Fab Fit Gold */
+  --color-primary-hover: #A8861E;
+  --color-primary-foreground: #000000;
+  
+  --color-text-primary: #f8fafc; /* Off-White */
+  --color-text-secondary: #a1a1aa; /* Neutral Gray */
+
+  --color-border: #3f3f46;
+  
+  /* Typography */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  :root {
+    --primary-rgb: 255, 184, 28;
+    --background: var(--color-background);
+    --foreground: var(--color-text-primary);
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    letter-spacing: -0.02em;
+  }
+
+  /* Custom Selection Color */
+  ::selection {
+    background-color: var(--color-primary);
+    color: var(--color-primary-foreground);
+  }
+
+  /* Global Button Hover & Active Animations */
+  button, a[role="button"], .btn {
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  button:hover:not(:disabled), a[role="button"]:hover, .btn:hover {
+    transform: scale(1.03);
+    filter: brightness(1.1);
+  }
+
+  button:active:not(:disabled), a[role="button"]:active, .btn:active {
+    transform: scale(0.97);
+  }
+}
+
+/* Utilities for cards and sections */
+@layer utilities {
+  .bg-surface {
+    background-color: var(--color-surface);
+  }
+  .bg-card {
+    background-color: var(--color-card);
+  }
+  .text-secondary {
+    color: var(--color-text-secondary);
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+html { 
+  scroll-padding-top: 72px; /* Offset for fixed navbar */
+}

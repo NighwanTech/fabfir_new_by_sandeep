@@ -1,0 +1,505 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-1.0.x"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum AssessmentStatus {
+  NEW
+  REVIEWING
+  CONTACTED
+  ACCEPTED
+  REJECTED
+}
+
+model Assessment {
+  id              String   @id @default(uuid())
+  
+  firstName       String
+  lastName        String
+  age             Int
+  gender          String
+  height          String
+  weight          String
+  email           String
+  phone           String
+  activityLevel   String
+
+  primaryGoal     String
+  experience      String
+  frequency       String
+  equipment       String
+  cardio          String
+
+  occupation      String
+  steps           String
+  sleep           String
+  stress          String
+
+  diet            String
+  meals           String
+  alcohol         String
+  tobacco         String
+  supplements     String?   
+
+  conditions      String
+  medications     String
+  injuries        String
+  allergies       String
+  waist           String
+  bloodReportUrl  String?
+  physiqueImageUrl String?
+
+  commitmentLevel Int
+  notes           String?
+  status          AssessmentStatus @default(NEW)
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  deletedAt       DateTime?
+}
+
+enum HeroStatus {
+  DRAFT
+  ACTIVE
+  INACTIVE
+}
+
+model Hero {
+  id                  String     @id @default(uuid())
+  badge               String?
+  title               String
+  subtitle            String?
+  description         String?
+  primaryButtonText   String?
+  primaryButtonLink   String?
+  secondaryButtonText String?
+  secondaryButtonLink String?
+  backgroundImage     String?
+  foregroundImage     String?
+  status              HeroStatus @default(DRAFT)
+  displayOrder        Int        @default(0)
+  
+  createdAt           DateTime   @default(now())
+  updatedAt           DateTime   @updatedAt
+  deletedAt           DateTime?
+}
+
+model SystemStat {
+  id            String @id @default("global_stats")
+  totalVisitors Int    @default(0)
+}
+
+enum CounterStatus {
+  DRAFT
+  ACTIVE
+  INACTIVE
+}
+
+model Counter {
+  id            String        @id @default(uuid())
+  label         String
+  value         String
+  suffix        String?
+  icon          String?
+  status        CounterStatus @default(ACTIVE)
+  displayOrder  Int           @default(0)
+  
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  deletedAt     DateTime?
+}
+
+enum AboutStatus {
+  DRAFT
+  ACTIVE
+  INACTIVE
+}
+
+model About {
+  id            String      @id @default(uuid())
+  badge         String?
+  headingLine1  String
+  headingLine2  String?
+  description   String?     @db.Text
+  checklist     Json?       // Dynamic array of strings
+  images        Json?       // Dynamic array of image URLs
+  status        AboutStatus @default(DRAFT)
+  
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  deletedAt     DateTime?
+}
+
+enum GalleryType {
+  IMAGE
+  VIDEO
+}
+
+enum GalleryStatus {
+  DRAFT
+  ACTIVE
+  INACTIVE
+}
+
+model Gallery {
+  id            String        @id @default(uuid())
+  title         String
+  category      String
+  description   String?       @db.Text
+  type          GalleryType   @default(IMAGE)
+  mediaUrl      String
+  thumbnailUrl  String?
+  isFeatured    Boolean       @default(false)
+  status        GalleryStatus @default(ACTIVE)
+  displayOrder  Int           @default(0)
+  
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  deletedAt     DateTime?
+}
+
+enum ProgramStatus {
+  ACTIVE
+  INACTIVE
+}
+
+model Program {
+  id              String        @id @default(uuid())
+  title           String
+  shortDescription String       @db.Text
+  image           String
+  icon            String
+  isFeatured      Boolean       @default(false)
+  status          ProgramStatus @default(ACTIVE)
+  displayOrder    Int           @default(0)
+  
+  featuredItem1Title String?
+  featuredItem1Icon  String?
+  featuredItem2Title String?
+  featuredItem2Icon  String?
+  featuredItem3Title String?
+  featuredItem3Icon  String?
+  featuredItem4Title String?
+  featuredItem4Icon  String?
+
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  deletedAt       DateTime?
+}
+
+enum HighlightStatus {
+  ACTIVE
+  INACTIVE
+}
+
+model ProgramHighlight {
+  id            String          @id @default(uuid())
+  title         String
+  description   String          @db.Text
+  icon          String
+  status        HighlightStatus @default(ACTIVE)
+  displayOrder  Int             @default(0)
+  
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  deletedAt     DateTime?
+}
+
+enum SectionStatus {
+  ACTIVE
+  INACTIVE
+  DRAFT
+}
+
+model ProgramSection {
+  id            String        @id @default(uuid())
+  badge         String
+  title         String
+  description   String        @db.Text
+  status        SectionStatus @default(ACTIVE)
+  
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  deletedAt     DateTime?
+}
+
+enum MembershipSectionStatus {
+  ACTIVE
+  INACTIVE
+}
+
+model MembershipSection {
+  id          String   @id @default(uuid())
+  badge       String
+  title       String
+  description String   @db.Text
+  status      MembershipSectionStatus @default(ACTIVE)
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  deletedAt   DateTime?
+}
+
+enum PlanStatus {
+  ACTIVE
+  INACTIVE
+}
+
+model MembershipPlan {
+  id           String   @id @default(uuid())
+  name         String
+  duration     Int
+  price        Float
+  pricePeriod  String
+  isPopular    Boolean  @default(false)
+  enquiryText  String
+  enquiryLink  String
+  status       PlanStatus @default(ACTIVE)
+  displayOrder Int      @default(0)
+  
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  deletedAt    DateTime?
+
+  features     MembershipPlanFeature[]
+}
+
+model MembershipPlanFeature {
+  id           String   @id @default(uuid())
+  planId       String
+  plan         MembershipPlan @relation(fields: [planId], references: [id], onDelete: Cascade)
+  title        String
+  icon         String?
+  status       PlanStatus @default(ACTIVE)
+  displayOrder Int      @default(0)
+  
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  deletedAt    DateTime?
+}
+
+enum TestimonialStatus {
+  ACTIVE
+  INACTIVE
+  DRAFT
+}
+
+model Testimonial {
+  id           String            @id @default(uuid())
+
+  name         String
+  profession   String
+  quote        String            @db.Text
+  image        String?
+
+  stat1Value   String?
+  stat1Label   String?
+  stat1Icon    String?
+  stat2Value   String?
+  stat2Label   String?
+  stat2Icon    String?
+  stat3Value   String?
+  stat3Label   String?
+  stat3Icon    String?
+
+  status       TestimonialStatus @default(ACTIVE)
+  displayOrder Int               @default(0)
+
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+  deletedAt    DateTime?
+}
+
+enum HeadCoachStatus {
+  DRAFT
+  ACTIVE
+  INACTIVE
+}
+
+model HeadCoach {
+  id          String   @id @default(uuid())
+  coachName   String
+  label       String
+  subtitle    String
+  heading     String
+  description String   @db.Text
+  image       String
+  badgeText   String?
+  ctaText     String
+  ctaLink     String
+  status      HeadCoachStatus @default(DRAFT)
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  deletedAt   DateTime?
+}
+
+enum TeamSectionStatus {
+  DRAFT
+  ACTIVE
+  INACTIVE
+}
+
+model TeamSection {
+  id          String   @id @default(uuid())
+  badge       String
+  title       String
+  description String   @db.Text
+  status      TeamSectionStatus @default(DRAFT)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  deletedAt   DateTime?
+}
+
+enum TeamMemberStatus {
+  DRAFT
+  ACTIVE
+  INACTIVE
+}
+
+model TeamMember {
+  id             String   @id @default(uuid())
+
+  name           String
+  category       String
+  specialization String
+  description    String   @db.Text
+  image          String
+
+  instagramUrl   String?
+  facebookUrl    String?
+
+  status         TeamMemberStatus @default(DRAFT)
+  displayOrder   Int      @default(0)
+
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  deletedAt      DateTime?
+}
+
+enum ServiceStatus {
+  DRAFT
+  ACTIVE
+  INACTIVE
+}
+
+model Service {
+  id          String   @id @default(uuid())
+
+  title       String
+  slug        String   @unique
+  badge       String
+  shortDescription String
+  description String   @db.Text
+
+  cardImage   String
+  heroImage   String
+
+  duration    String
+  sessions    String
+  level       String
+  equipment   String
+
+  features    Json?
+  items       Json?
+  methodologyDescription String? @db.Text
+
+  ctaPrimaryText String?
+  ctaPrimaryLink String?
+
+  ctaSecondaryText String?
+  ctaSecondaryLink String?
+
+  ctaBadge       String?
+  ctaTitle       String?
+  ctaDescription String? @db.Text
+  ctaButtonText  String?
+  ctaButtonLink  String?
+  ctaImage       String?
+
+  status       ServiceStatus @default(DRAFT)
+  displayOrder Int           @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
+}
+
+enum TransformationSectionStatus {
+  DRAFT
+  ACTIVE
+  INACTIVE
+}
+
+model TransformationSection {
+  id              String   @id @default(uuid())
+  badge           String
+  title           String
+  description     String   @db.Text
+  backgroundImage String?
+  status          TransformationSectionStatus @default(DRAFT)
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  deletedAt       DateTime?
+}
+
+enum TransformationStatus {
+  DRAFT
+  ACTIVE
+  INACTIVE
+}
+
+model Transformation {
+  id              String   @id @default(uuid())
+
+  title           String
+  slug            String   @unique
+  subtitle        String?
+
+  icon            String?
+
+  beforeImage     String
+  afterImage      String
+
+  highlights      Json?
+
+  stat1Value      String?
+  stat1Label      String?
+  stat2Value      String?
+  stat2Label      String?
+
+  showInMain      Boolean  @default(false)
+
+  status          TransformationStatus @default(DRAFT)
+  displayOrder    Int      @default(0)
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  deletedAt       DateTime?
+}
+
+model Admin {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model PageSection {
+  id        String   @id @default(uuid())
+  sectionId String   @unique // e.g., 'home', 'about', 'membership'
+  title     String   // e.g., 'HOME', 'ABOUT' (can be edited to 'hommiiee')
+  order     Int      @default(0) // order of appearance
+  isActive  Boolean  @default(true) // visible or hidden
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

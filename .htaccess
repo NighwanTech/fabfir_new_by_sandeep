@@ -1,0 +1,20 @@
+# HOSTINGER REVERSE PROXY CONFIGURATION
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Only apply proxy pass rules if mod_proxy is enabled on the server
+  <IfModule mod_proxy.c>
+    # Handle WebSocket Connections
+    RewriteCond %{HTTP:Upgrade} =websocket [NC]
+    RewriteRule /(.*) ws://127.0.0.1:3000/$1 [P,L]
+
+    # Pass all requests to the unified Node.js application running on Port 3000
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ http://127.0.0.1:3000/$1 [P,L]
+
+    # Route root URL
+    RewriteRule ^$ http://127.0.0.1:3000/ [P,L]
+  </IfModule>
+</IfModule>
