@@ -235,18 +235,24 @@ export function Footer() {
             © {new Date().getFullYear()}{" "}
             <span className="text-white font-bold">FabFit Performance</span>. All rights reserved.
           </p>
-          <div className="flex items-center gap-6">
+          <div className="flex flex-wrap items-center gap-4 sm:gap-6">
             <Link href="/privacy" className="hover:text-primary transition-colors font-semibold">
               Privacy Policy
             </Link>
             <Link href="/terms" className="hover:text-primary transition-colors font-semibold">
               Terms of Service
             </Link>
-            <span className="text-zinc-600">|</span>
+            <span className="text-zinc-600 hidden sm:inline">|</span>
             <span>
-              Made with{" "}
-              <span className="text-primary">♥</span>{" "}
-              for fitness
+              Designed & Developed by{" "}
+              <a
+                href="https://nighwantech.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:underline font-bold transition-colors"
+              >
+                Nighwan Technology
+              </a>
             </span>
           </div>
         </div>
